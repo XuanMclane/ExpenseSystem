@@ -32,7 +32,7 @@ namespace ExpenseSystem
             });
 
             var connection = "Server=localhost; Database=ExpenseSystemTest; Integrated Security=True";
-            services.AddDbContext<ExpenseDBContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("ExpenseSystem")));
+            services.AddDbContext<ExpenseDBContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
