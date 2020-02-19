@@ -31,7 +31,7 @@ namespace ExpenseSystem.DataAccess.Repository
             {
                 entityEntry.State = EntityState.Added;
             }
-            await Context.SaveChangeAsync();
+            await Context.SaveChangesAsync();
             return entity;
         }
 
@@ -48,7 +48,7 @@ namespace ExpenseSystem.DataAccess.Repository
             Context.Entry(originalEntity).State = EntityState.Modified;
             Context.Entry(originalEntity).Property(x => x.CreatedBy).IsModified = false;
             Context.Entry(originalEntity).Property(x => x.CreationTimeStamp).IsModified = false;
-            await Context.SaveChangeAsync();
+            await Context.SaveChangesAsync();
             return entity;
         }
 
@@ -61,7 +61,7 @@ namespace ExpenseSystem.DataAccess.Repository
             Context.Entry(originalEntity).State = EntityState.Modified;
             Context.Entry(originalEntity).Property(x => x.CreatedBy).IsModified = false;
             Context.Entry(originalEntity).Property(x => x.CreationTimeStamp).IsModified = false;
-            await Context.SaveChangeAsync();
+            await Context.SaveChangesAsync();
             return true;
         }
 

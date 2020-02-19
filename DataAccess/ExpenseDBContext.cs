@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataAccess
@@ -21,7 +22,7 @@ namespace DataAccess
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public async Task<int> SaveChangeAsync()
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var createdRecords = ChangeTracker.Entries<BaseEntity>()
                 .Where(t => t.State == EntityState.Added)
@@ -47,7 +48,7 @@ namespace DataAccess
 
             ChangeTracker.DetectChanges();
 
-            return await base.SaveChangesAsync();
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }
