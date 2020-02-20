@@ -1,4 +1,10 @@
+using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using DataAccess;
+using ExpenseSystem.DataAccess.Repository;
+using ExpenseSystem.Interface;
+using ExpenseSystem.Shared;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace ExpenseSystem
 {
@@ -33,6 +40,10 @@ namespace ExpenseSystem
 
             var connection = "Server=localhost; Database=ExpenseSystemTest; Integrated Security=True";
             services.AddDbContext<ExpenseDBContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(config => config.AddCollectionMappers(), Assembly.GetExecutingAssembly());
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
