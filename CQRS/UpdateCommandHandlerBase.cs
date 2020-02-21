@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace ExpenseSystem.CQRS
 {
-    public class FindQueryHandlerBase<TQuery, TResponse, TEntity, TViewModel> : IRequestHandler<TQuery, TResponse>
-        where TQuery : QueryBase<TViewModel>, IRequest<TResponse>
+    public class UpdateCommandHandlerBase<TCommand, TResponse, TEntity, TViewModel> : IRequestHandler<TCommand, TResponse>
+        where TCommand : ICommandBase<TViewModel>, IRequest<TResponse>
         where TResponse : ResultResponse<TViewModel>
         where TEntity : BaseEntity
         where TViewModel : BaseDTO
@@ -20,18 +20,18 @@ namespace ExpenseSystem.CQRS
         protected readonly IMapper _mapper;
         protected readonly IRepository<TEntity> Repository;
 
-        public FindQueryHandlerBase(IMapper mapper, IRepository<TEntity> repository)
+        public UpdateCommandHandlerBase(IMapper mapper, IRepository<TEntity> repository)
         {
             _mapper = mapper;
             Repository = repository;
         }
 
-        public async Task<TResponse> Handle(TQuery request, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TCommand request, CancellationToken cancellationToken)
         {
             var result = new ResultResponse<TViewModel> { IsSuccess = true };
             try
             {
-                var entity = await Repository.FindById(request.Id);
+                var entity = await Repository.Update(_mapper.Map<TEntity>(request));
                 if (entity == null)
                 {
                     result.IsSuccess = false;
