@@ -44,6 +44,8 @@ namespace ExpenseSystem
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(config => config.AddCollectionMappers(), Assembly.GetExecutingAssembly());
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +65,9 @@ namespace ExpenseSystem
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
