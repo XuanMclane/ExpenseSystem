@@ -11,6 +11,7 @@ namespace ExpenseSystem.Interface
         #region Repositories
         IExpenseTypeRepository ExpenseType { get; }
         IExpenseRepository Expense { get; }
+        IInvoiceRepository Invoice { get; }
         #endregion
 
         Task Commit();

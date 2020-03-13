@@ -6,17 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExpenseSystem.Service.ExpenseService
+namespace ExpenseSystem.Service.InvoiceService
 {
     public class InvoiceMapperProfile : Profile
     {
         public InvoiceMapperProfile()
         {
-            CreateMap<Expense, ExpenseDTO>()
-                .ForMember(d => d.ExpenseType, o => o.Ignore());
-
-            CreateMap<ExpenseDTO, Expense>()
-                .ForMember(d => d.ExpenseType, o => o.Ignore());
+            CreateMap<Invoice, InvoiceDTO>()
+                .ReverseMap();
         }
     }
 }

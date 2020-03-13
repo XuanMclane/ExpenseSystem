@@ -99,6 +99,9 @@ namespace ExpenseSystem.DataAccess.Repository
 
         private IExpenseRepository _expense;
         public IExpenseRepository Expense => _expense ?? (_expense = new ExpenseRepository(_context));
+
+        private IInvoiceRepository _invoice;
+        public IInvoiceRepository Invoice => _invoice ?? (_invoice = new InvoiceRepository(_context));
         #endregion
     }
 }
