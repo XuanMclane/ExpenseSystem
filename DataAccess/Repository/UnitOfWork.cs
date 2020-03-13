@@ -96,6 +96,9 @@ namespace ExpenseSystem.DataAccess.Repository
         #region Repositories
         private IExpenseTypeRepository _expenseType;
         public IExpenseTypeRepository ExpenseType => _expenseType ?? (_expenseType = new ExpenseTypeRepository(_context));
+
+        private IExpenseRepository _expense;
+        public IExpenseRepository Expense => _expense ?? (_expense = new ExpenseRepository(_context));
         #endregion
     }
 }

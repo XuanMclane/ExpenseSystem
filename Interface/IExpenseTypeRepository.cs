@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExpenseSystem.Interface
 {
-    public interface IExpenseRepository : IRepository<Expense>
+    public interface IExpenseTypeRepository : IRepository<ExpenseType>
     {
     }
 }
